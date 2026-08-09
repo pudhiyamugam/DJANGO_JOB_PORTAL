@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}JOB PORTAL {% endblock %}</title>
+    </head>
+    <body>
+        <header>
+            <h2>JOB PORTAL</h2>
+            <hr>
+            {% if user.is_authenticated %}
+                welcome {{user.username}}
+                |
+                <a href="{% url 'user_logout'%}">LOGOUT</a>
+
+            {% else %}
+
+                <a href="{% url 'user_login'%}">LOGIN</a>
+                |
+                <a href="{% url 'register'%}">REGISTER</a>
+
+            {% endif %}
+            <hr>
+        </header>
+
+        {% block content%}
+        {% endblock %}
+        <hr>
+
+        <footer>
+        <p>© 2026 Job Portal</p>
+    </footer>
+    </body>
+</html>

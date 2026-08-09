@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content%}
+
+<h1>welcome {{username.username}}</h1>
+
+<h2>{{portal_name}}</h2>
+
+<p>totoal jobs availible</p>
+
+{% for job in jobs%}
+    <h3>
+        <a href="{% url 'job_details' job.id %}">{{job.title}}</a>
+    </h3>
+    <p><strong>company: </strong> {{job.company}}</p>
+    <p><strong>loacation: </strong> {{job.location}}</p>
+    <p><strong>sallary: </strong> {{job.salary}}</p>
+    <p>{{job.descritpion}}</p>
+    <hr>
+
+{% empty %}
+
+    <p> soory not jobs </p>
+
+{% endfor %}
+
+{% endblock %}

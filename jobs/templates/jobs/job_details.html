@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+{{job.title}}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{job.title}}</h1>
+
+<p><strong>COMPANY</strong>{{job.company}}</p>
+<p><strong>LOCATION</strong>{{job.location}}</p>
+<p><strong>SALLARY</strong>{{job.salary}}</p>
+<hr>
+
+<p>{{job.descritpion}}</p>
+<a href="/jobs/">back to home</a>
+
+{% endblock %}
