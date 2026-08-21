@@ -5,4 +5,10 @@ class JobForm(forms.ModelForm):
 
     class Meta:
         model=Job
-        fields="__all__"
+        fields=[
+            "title",
+            "company",
+            "location",
+            "salary",
+            "descritpion"
+        ]
