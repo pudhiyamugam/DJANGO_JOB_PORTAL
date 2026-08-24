@@ -43,3 +43,34 @@ def create_job(request):
         }
 
     return render(request,"jobs/create_job.html",context)
+
+@login_required
+@recruiter_required
+def my_jobs(request):
+    jobs=request.user.jobs.all()
+
+    return render(request,"jobs/my_jobs.html",{"jobs":jobs})
+
+@login_required
+@recruiter_required
+def edit_job(request,id):
+    job=request.user.jobs.get(id=id)
+
+    if request.method=="POST":
+        form=JobForm(request.POST,instance=job)
+        if form.is_valid():
+            form.save()
+
+            return redirect("my_jobs")
+
+    else:
+        form=JobForm(instance=job)
+
+    return render(
+        request,
+        "jobs/edit_job.html",
+        {
+            "form":form,
+            "job":job
+        }
+    )
