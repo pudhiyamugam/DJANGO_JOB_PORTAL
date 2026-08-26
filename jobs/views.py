@@ -74,3 +74,16 @@ def edit_job(request,id):
             "job":job
         }
     )
+
+@login_required
+@recruiter_required
+def delete_job(request,id):
+
+    job=request.user.jobs.get(id=id)
+
+    if request.method=="POST":
+        job.delete()
+
+        return redirect("my_jobs")
+
+    return render(request,"jobs/delete_job.html",{"job":job})
