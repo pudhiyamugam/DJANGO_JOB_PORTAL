@@ -34,7 +34,7 @@ def create_job(request):
             job=form.save(commit=False)
             job.recruiter=request.user
             job.save()
-            return redirect("recruiter_dashboard")
+            return redirect("my_jobs")
     else:
         form=JobForm()
 
@@ -87,3 +87,22 @@ def delete_job(request,id):
         return redirect("my_jobs")
 
     return render(request,"jobs/delete_job.html",{"job":job})
+
+def job_list(request):
+    query=request.GET.get("q")
+
+    if query:
+        jobs=Job.objects.filter(
+            title__icontains=query
+        )
+    else:
+        jobs=Job.objects.all()
+
+    return render(
+        request,
+        "jobs/job_list.html",
+        {
+            "jobs":jobs,
+            "query":query
+        }
+    )

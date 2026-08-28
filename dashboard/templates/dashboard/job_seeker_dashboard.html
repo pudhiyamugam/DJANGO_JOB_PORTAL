@@ -11,5 +11,8 @@ Job Seeker Dashboard
 <h2>Welcome {{ user.username }}</h2>
 
 <p>You are logged in as a job seeker.</p>
+<a href="{% url 'job_list'%}">
+    VIEW JOBS
+</a>
 
 {% endblock %}
