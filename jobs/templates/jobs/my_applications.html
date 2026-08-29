@@ -1,0 +1,40 @@
+{% extends "base.html"%}
+{% block title%}
+MY APPLICATIONS
+{% endblock %}
+
+{% block content%}
+{% for applicantion in applicantions %}
+    <div>
+
+            <h2>{{ application.job.title }}</h2>
+
+            <p>
+                Company: {{ application.job.company }}
+            </p>
+
+            <p>
+                Location: {{ application.job.location }}
+            </p>
+
+            <p>
+                Salary: {{ application.job.salary }}
+            </p>
+
+            <p>
+                Applied on: {{ application.applied_at }}
+            </p>
+
+            <p>
+                Status: {{ application.status }}
+            </p>
+
+        </div>
+
+        <hr>
+
+{% empty %}
+
+    <p>You haven't applied for any jobs yet.</p>
+{% endfor %}
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Job
+from .models import Job, Application
 from .forms import JobForm
-from dashboard.decorators import recruiter_required
+from dashboard.decorators import recruiter_required, jobseeker_required
 from django.contrib.auth.decorators import login_required
 
 def home(request):
@@ -104,5 +104,42 @@ def job_list(request):
         {
             "jobs":jobs,
             "query":query
+        }
+    )
+
+@login_required
+@jobseeker_required
+def apply_job(request, id):
+
+    job = get_object_or_404(Job, id=id)
+
+    if request.method == "POST":
+        is_applied=Application.objects.filter(
+            job=job,
+            applicant=request.user
+        ).exists()
+        if not is_applied:
+
+            Application.objects.create(
+                job=job,
+                applicant=request.user
+            )
+
+        return redirect("my_applications")
+
+    return redirect("job_list")
+
+@login_required
+@jobseeker_required
+def my_applications(request):
+    application=Application.objects.filter(
+        applicant=request.user
+    )
+
+    return render(
+        request,
+        "jobs/my_applications.html",
+        {
+            "applications":application
         }
     )

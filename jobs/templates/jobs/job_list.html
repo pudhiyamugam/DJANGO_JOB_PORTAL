@@ -23,9 +23,12 @@ HOME PAGE
         <p>{{job.location}}</p>
         <p>{{job.descritpion}}</p>
 
-        <button>
-            Apply
-        </button>
+        <form method="post" action="{% url 'apply_job' job.id %}">
+            {% csrf_token %}
+            <button type="submit">
+                Apply
+            </button>
+        </form>
 
     </div>
     <hr>
