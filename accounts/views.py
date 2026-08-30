@@ -14,7 +14,7 @@ def Register(request):
                 user=user,
                 role=form.cleaned_data["role"]
             )
-            return redirect("home")
+            return redirect("user_login")
 
     else:
         form=RegisterForm()

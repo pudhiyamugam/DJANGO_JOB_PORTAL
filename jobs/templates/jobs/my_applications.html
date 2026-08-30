@@ -4,34 +4,32 @@ MY APPLICATIONS
 {% endblock %}
 
 {% block content%}
-{% for applicantion in applicantions %}
+{% for application in applications %}
     <div>
 
-            <h2>{{ application.job.title }}</h2>
+        <h2>{{ application.job.title }}</h2>
 
-            <p>
-                Company: {{ application.job.company }}
-            </p>
+        <p>
+            Company: {{ application.job.company }}
+        </p>
 
-            <p>
-                Location: {{ application.job.location }}
-            </p>
+        <p>
+            Location: {{ application.job.location }}
+        </p>
 
-            <p>
-                Salary: {{ application.job.salary }}
-            </p>
+        <p>
+           Salary: {{ application.job.salary }}
+        </p>
+        <p>                Applied on: {{ application.applied_at }}
+        </p>
 
-            <p>
-                Applied on: {{ application.applied_at }}
-            </p>
+        <p>
+            Status: {{ application.status }}
+        </p>
 
-            <p>
-                Status: {{ application.status }}
-            </p>
+    </div>
 
-        </div>
-
-        <hr>
+    <hr>
 
 {% empty %}
 
