@@ -10,7 +10,7 @@
             <h2>JOB PORTAL</h2>
             <hr>
             {% if user.is_authenticated %}
-                welcome {{user.username}}
+                welcome <a href="{% url 'job_seeker_dashboard' %}">{{user.username}}</a>
                 |
                 <a href="{% url 'user_logout'%}">LOGOUT</a>
 

@@ -98,12 +98,26 @@ def job_list(request):
     else:
         jobs=Job.objects.all()
 
+    if request.user.is_authenticated:
+        applications=Application.objects.filter(
+            applicant=request.user
+        )
+
+        applied_job_id=set(applications.values_list(
+            "job_id",
+            flat=True
+        ))
+
+    else:
+        applied_job_id=[]
+
     return render(
         request,
         "jobs/job_list.html",
         {
             "jobs":jobs,
-            "query":query
+            "query":query,
+            "applied_jobs":applied_job_id
         }
     )
 

@@ -20,7 +20,8 @@ MY APPLICATIONS
         <p>
            Salary: {{ application.job.salary }}
         </p>
-        <p>                Applied on: {{ application.applied_at }}
+        <p>
+            Applied on: {{ application.applied_at }}
         </p>
 
         <p>
@@ -35,4 +36,9 @@ MY APPLICATIONS
 
     <p>You haven't applied for any jobs yet.</p>
 {% endfor %}
+<button>
+    <a href="{% url 'job_list' %}">
+        HOME
+    </a>
+</button>
 {% endblock %}

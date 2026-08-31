@@ -23,12 +23,19 @@ HOME PAGE
         <p>{{job.location}}</p>
         <p>{{job.descritpion}}</p>
 
-        <form method="post" action="{% url 'apply_job' job.id %}">
-            {% csrf_token %}
-            <button type="submit">
-                Apply
+        {% if job.id in applied_jobs %}
+            <button disabled">
+                APPLIED
             </button>
-        </form>
+        
+        {% else %}
+            <form method="post" action="{% url 'apply_job' job.id %}">
+                {% csrf_token %}
+                <button type="submit">
+                    Apply
+                </button>
+            </form>
+        {% endif %}
 
     </div>
     <hr>
