@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+{% block title%}
+APPLICANTS
+{% endblock %}
+
+{% block content %}
+{% for applicant in applicants%}
+    <p>{{applicant.applied_at}}</p>
+{% empty %}
+    <p>there is no one</p>
+{% endfor %}
+{% endblock %}

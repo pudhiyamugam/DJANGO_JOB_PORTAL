@@ -157,3 +157,16 @@ def my_applications(request):
             "applications":application
         }
     )
+
+@login_required
+@recruiter_required
+def applicants(request,id):
+    applicants=Application.objects.filter(
+        job_id=id
+    )
+    mode=type(applicants)
+
+    return render(request,"jobs/applicants.html",{
+        "applicants":applicants,
+        "mode":mode
+    })

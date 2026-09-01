@@ -27,9 +27,11 @@ My Jobs
                 Delete
             </a>
 
-            <a>
-                APPLICANTS
-            </a>
+            <form method="get" action="{% url 'applicants' job.id %}">
+                <button>
+                    APPLICANTS
+                </button>
+            </form>
         </div>
 
         <hr>
