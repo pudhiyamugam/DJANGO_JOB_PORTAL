@@ -161,12 +161,11 @@ def my_applications(request):
 @login_required
 @recruiter_required
 def applicants(request,id):
-    applicants=Application.objects.filter(
-        job_id=id
-    )
-    mode=type(applicants)
+    job=request.user.jobs.get(id=id)
+
+    applicantion_object=job.applications.all()
 
     return render(request,"jobs/applicants.html",{
-        "applicants":applicants,
-        "mode":mode
+        "applicants":applicantion_object,
+        "job":job
     })

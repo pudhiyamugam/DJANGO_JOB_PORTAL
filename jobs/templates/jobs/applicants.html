@@ -4,8 +4,18 @@ APPLICANTS
 {% endblock %}
 
 {% block content %}
+<p>{{job}}</p>
 {% for applicant in applicants%}
+    <p>{{applicant.applicant.username}}</p>
+    <p>{{applicant.email}}</p>
+    <p>{{applicant.job}}</p>
     <p>{{applicant.applied_at}}</p>
+    <p>{{applicant.status}}</p>
+
+    <p>***********************************************************</p>
+
+
+
 {% empty %}
     <p>there is no one</p>
 {% endfor %}
