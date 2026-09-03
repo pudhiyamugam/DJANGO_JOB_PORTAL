@@ -146,6 +146,7 @@ def apply_job(request, id):
 @login_required
 @jobseeker_required
 def my_applications(request):
+
     application=Application.objects.filter(
         applicant=request.user
     )
@@ -169,3 +170,12 @@ def applicants(request,id):
         "applicants":applicantion_object,
         "job":job
     })
+
+@login_required
+@jobseeker_required
+def delete_application(request,id):
+    if request.method=="POST":
+        (request.user.applications.get(job_id=id)).delete()
+        return redirect("my_applications")
+
+    return redirect("my_applications")

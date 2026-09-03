@@ -28,6 +28,13 @@ MY APPLICATIONS
             Status: {{ application.status }}
         </p>
 
+        <form method="post" action="{% url 'delete_application' application.job.id %}">
+            {% csrf_token %}
+            <button type="submit">
+                REMOVE
+            </button>
+        </form>
+
     </div>
 
     <hr>

@@ -10,5 +10,6 @@ urlpatterns=[
     path("<int:id>/delete/",views.delete_job,name="delete_job"),
     path("<int:id>/apply/",views.apply_job,name="apply_job"),
     path("my-applications/",views.my_applications,name="my_applications"),
-    path("<int:id>/applicants/",views.applicants,name="applicants")
+    path("<int:id>/applicants/",views.applicants,name="applicants"),
+    path("<int:id>/delete_application",views.delete_application,name="delete_application")
 ]
