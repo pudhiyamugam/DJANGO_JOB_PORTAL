@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job
+from .models import Job, Application
 
 class JobForm(forms.ModelForm):
 
@@ -12,3 +12,9 @@ class JobForm(forms.ModelForm):
             "salary",
             "descritpion"
         ]
+
+class ApplicationStatusForm(forms.ModelForm):
+
+    class Meta:
+        model=Application
+        fields=["status"]

@@ -11,5 +11,6 @@ urlpatterns=[
     path("<int:id>/apply/",views.apply_job,name="apply_job"),
     path("my-applications/",views.my_applications,name="my_applications"),
     path("<int:id>/applicants/",views.applicants,name="applicants"),
-    path("<int:id>/delete_application",views.delete_application,name="delete_application")
+    path("<int:id>/delete_application",views.delete_application,name="delete_application"),
+    path("<int:id>/update_application",views.update_application,name="update_application")
 ]

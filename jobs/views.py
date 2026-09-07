@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Job, Application
-from .forms import JobForm
+from .forms import JobForm, ApplicationStatusForm
 from dashboard.decorators import recruiter_required, jobseeker_required
 from django.contrib.auth.decorators import login_required
 
@@ -163,12 +163,14 @@ def my_applications(request):
 @recruiter_required
 def applicants(request,id):
     job=request.user.jobs.get(id=id)
-
     applicantion_object=job.applications.all()
 
+    form=ApplicationStatusForm()
+
     return render(request,"jobs/applicants.html",{
-        "applicants":applicantion_object,
-        "job":job
+        "applications":applicantion_object,
+        "job":job,
+        "form":form
     })
 
 @login_required
@@ -179,3 +181,19 @@ def delete_application(request,id):
         return redirect("my_applications")
 
     return redirect("my_applications")
+
+@login_required
+@recruiter_required
+def update_application(request, id):
+    application=get_object_or_404(
+        Application,
+        id=id,
+        job__recruiter=request.user
+    )
+    if request.method=="POST":
+
+        form=ApplicationStatusForm(request.POST,instance=application)
+        if form.is_valid():
+            form.save()
+
+    return redirect("applicants",application.job.id)

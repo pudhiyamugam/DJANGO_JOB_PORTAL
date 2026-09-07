@@ -37,9 +37,18 @@ class Application(models.Model):
         auto_now_add=True
     )
 
+    STATUS_CHOICES=[
+        ("Applied", "Applied"),
+        ("Shortlisted", "Shortlisted"),
+        ("Interview", "Interview"),
+        ("Selected", "Selected"),
+        ("Rejected", "Rejected")
+    ]
+
     status=models.CharField(
         max_length=20,
-        default="applied"
+        default="applied",
+        choices=STATUS_CHOICES
     )
 
     class Meta:
