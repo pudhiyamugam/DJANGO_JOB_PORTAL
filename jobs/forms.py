@@ -1,5 +1,5 @@
 from django import forms
-from .models import Job, Application
+from .models import Job, Application, Resume
 
 class JobForm(forms.ModelForm):
 
@@ -18,3 +18,9 @@ class ApplicationStatusForm(forms.ModelForm):
     class Meta:
         model=Application
         fields=["status"]
+
+class ResumeForm(forms.ModelForm):
+
+    class Meta:
+        model=Resume
+        fields=["file"]

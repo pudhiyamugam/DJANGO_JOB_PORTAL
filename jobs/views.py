@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Job, Application
-from .forms import JobForm, ApplicationStatusForm
+from .models import Job, Application, Resume
+from .forms import JobForm, ApplicationStatusForm, ResumeForm
 from dashboard.decorators import recruiter_required, jobseeker_required
 from django.contrib.auth.decorators import login_required
 
@@ -165,12 +165,9 @@ def applicants(request,id):
     job=request.user.jobs.get(id=id)
     applicantion_object=job.applications.all()
 
-    form=ApplicationStatusForm()
-
     return render(request,"jobs/applicants.html",{
         "applications":applicantion_object,
-        "job":job,
-        "form":form
+        "job":job
     })
 
 @login_required
@@ -197,3 +194,56 @@ def update_application(request, id):
             form.save()
 
     return redirect("applicants",application.job.id)
+
+@login_required
+@jobseeker_required
+def upload_resume(request):
+
+    if request.method == "POST":
+
+        print("FILES:", request.FILES)
+        print("POST:", request.POST)
+
+        if request.user.resumes.count() >= 3:
+            print("USER ALREADY HAS 3 RESUMES")
+            return redirect("my_resumes")
+
+        form = ResumeForm(
+            request.POST,
+            request.FILES
+        )
+
+        print("FORM VALID:", form.is_valid())
+        print("FORM ERRORS:", form.errors)
+
+        if form.is_valid():
+
+            resume = form.save(commit=False)
+            resume.applicant = request.user
+            resume.save()
+
+            print("RESUME SAVED:", resume)
+
+            return redirect("my_resumes")
+
+    else:
+        form = ResumeForm()
+
+    return render(
+        request,
+        "jobs/upload_resume.html",
+        {"form": form}
+    )
+
+@login_required
+@jobseeker_required
+def resumes(request):
+    resumes=request.user.resumes.all()
+
+    return render(
+        request,
+        "jobs/resumes.html/",
+        {
+            "resumes":resumes
+        }
+    )

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+MY RESUMES
+{% endblock %}
+
+{% block content %}
+<h1>MY RESUMES</h1>
+
+{% for resume in resumes %}
+    <p>
+        Resume id: {{resume.id}}
+    </p>
+    <p>
+        file: {{resume.file.name}}
+    </p>
+{% empty %}
+    <p>
+        None uploaded
+    </p>
+{% endfor %}
+<a href="{% url 'upload_resume' %}">
+    <button>
+        UPLOAD
+    </button>
+</a>
+
+{% endblock %}

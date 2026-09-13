@@ -19,6 +19,23 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+class Resume(models.Model):
+
+    applicant=models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="resumes"
+    )
+    file=models.FileField(
+        upload_to="resumes/"
+    )
+    uploaded_at=models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"resume {self.id} - {self.applicant.username}"
+
 class Application(models.Model):
 
     job=models.ForeignKey(
@@ -50,6 +67,14 @@ class Application(models.Model):
         default="applied",
         choices=STATUS_CHOICES
     )
+
+    resume = models.ForeignKey(
+        Resume,
+        on_delete=models.PROTECT,
+        related_name="applications",
+        null=True,
+        blank=True
+)
 
     class Meta:
 
