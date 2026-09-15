@@ -29,7 +29,7 @@ HOME PAGE
             </button>
         
         {% else %}
-            <form method="post" action="{% url 'apply_job' job.id %}">
+            <form method="get" action="{% url 'apply_job' job.id %}">
                 {% csrf_token %}
                 <button type="submit">
                     Apply

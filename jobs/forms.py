@@ -24,3 +24,14 @@ class ResumeForm(forms.ModelForm):
     class Meta:
         model=Resume
         fields=["file"]
+
+class ApplicationForm(forms.ModelForm):
+
+    class Meta:
+        model=Application
+        fields=["resume"]
+
+    def __init__(self,*args,user=None,**kwargs):
+        super().__init__(*args,**kwargs)
+
+        self.fields["resume"].queryset=user.resumes.all()

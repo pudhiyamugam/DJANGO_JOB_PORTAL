@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+APPLY FOR JOB
+{% endblock %}
+
+{% block content %}
+
+<p>NAME: {{request.user.username}}</p>
+<p>NAME: {{request.user.email}}</p>
+<p>NAME: {{job.title}}</p>
+<p>NAME: {{job.company}}</p>
+
+<form method="post" action="{% url 'apply_job' job.id %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">
+        COMPLETE
+    </button>
+</form>
+
+
+{% endblock %}

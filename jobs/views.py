@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Job, Application, Resume
-from .forms import JobForm, ApplicationStatusForm, ResumeForm
+from .forms import JobForm, ApplicationStatusForm, ResumeForm, ApplicationForm
 from dashboard.decorators import recruiter_required, jobseeker_required
 from django.contrib.auth.decorators import login_required
 
@@ -126,6 +126,19 @@ def job_list(request):
 def apply_job(request, id):
 
     job = get_object_or_404(Job, id=id)
+
+    if request.method == "GET":
+        form=ApplicationForm(
+            user=request.user
+        )
+
+        return render(
+            request,
+            "jobs/apply_job.html",
+                {
+                "form":form,
+                "job":job
+                })
 
     if request.method == "POST":
         is_applied=Application.objects.filter(
