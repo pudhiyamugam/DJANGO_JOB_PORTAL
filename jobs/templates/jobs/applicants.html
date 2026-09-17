@@ -13,6 +13,9 @@ APPLICANTS
     <p>{{application.job}}</p>
     <p>{{application.applied_at}}</p>
     <p>{{application.status}}</p>
+    <a href="{{ application.resume.file.url }}" target="_blank">
+        {{application.resume}}
+    </a>
     <form method="post" action="{% url 'update_application' application.id %}">
         {% csrf_token %}
         {{form.as_p}}

@@ -127,6 +127,12 @@ def apply_job(request, id):
 
     job = get_object_or_404(Job, id=id)
 
+    if Application.objects.filter(
+        job=job,
+        applicant=request.user
+    ).exists():
+        return redirect("my_applications")
+
     if request.method == "GET":
         form=ApplicationForm(
             user=request.user
@@ -179,9 +185,12 @@ def applicants(request,id):
     job=request.user.jobs.get(id=id)
     applicantion_object=job.applications.all()
 
+    form=ApplicationStatusForm()
+
     return render(request,"jobs/applicants.html",{
         "applications":applicantion_object,
-        "job":job
+        "job":job,
+        "form":form
     })
 
 @login_required
