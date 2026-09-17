@@ -141,18 +141,19 @@ def apply_job(request, id):
                 })
 
     if request.method == "POST":
-        is_applied=Application.objects.filter(
-            job=job,
-            applicant=request.user
-        ).exists()
-        if not is_applied:
+        form=ApplicationForm(
+            request.POST,
+            user=request.user
+        )
 
-            Application.objects.create(
-                job=job,
-                applicant=request.user
-            )
+        if form.is_valid():
+            application=form.save(commit=False)
+            application.job=job
+            application.applicant=request.user
+            application.status="Applied"
+            application.save()
 
-        return redirect("my_applications")
+            return redirect("my_applications")
 
     return redirect("job_list")
 
