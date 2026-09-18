@@ -1,35 +1,142 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}JOB PORTAL {% endblock %}</title>
-    </head>
-    <body>
-        <header>
-            <h2>JOB PORTAL</h2>
-            <hr>
-            {% if user.is_authenticated %}
-                welcome <a href="{% url 'job_seeker_dashboard' %}">{{user.username}}</a>
-                |
-                <a href="{% url 'user_logout'%}">LOGOUT</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-            {% else %}
+    <title>
+        {% block title %}Job Portal{% endblock %}
+    </title>
 
-                <a href="{% url 'user_login'%}">LOGIN</a>
-                |
-                <a href="{% url 'register'%}">REGISTER</a>
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-            {% endif %}
-            <hr>
-        </header>
+    {% block extra_css %}{% endblock %}
+</head>
 
-        {% block content%}
+<body class="bg-light">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+
+            <a class="navbar-brand fw-bold" href="{% url 'job_list' %}">
+                JobPortal
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'job_list' %}">
+                            Browse Jobs
+                        </a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+
+                        {% if user.profile.role == "jobseeker" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'my_applications' %}">
+                                    My Applications
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'my_resumes' %}">
+                                    My Resumes
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        {% if user.profile.role == "recruiter" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'my_jobs' %}">
+                                    My Jobs
+                                </a>
+                            </li>
+                        {% endif %}
+
+                    {% endif %}
+
+                </ul>
+
+                <!-- Right Side -->
+                <ul class="navbar-nav">
+
+                    {% if user.is_authenticated %}
+
+                        <li class="nav-item">
+                            <span class="navbar-text me-3">
+                                <a href="{% url 'job_seeker_dashboard' %}">
+                                    Hi, {{ user.username }}
+                                </a>
+                            </span>
+                        </li>
+
+                        <li class="nav-item">
+                            <form method="POST" action="{% url 'user_logout' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-outline-light btn-sm">
+                                    Logout
+                                </button>
+                            </form>
+                        </li>
+
+                    {% else %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'user_login' %}">
+                                Login
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-sm mt-1" href="{% url 'register' %}">
+                                Register
+                            </a>
+                        </li>
+
+                    {% endif %}
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+        {% block content %}
         {% endblock %}
-        <hr>
+    </main>
 
-        <footer>
-        <p>© 2026 Job Portal</p>
-    </footer>
-    </body>
+    <!-- Bootstrap JavaScript -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    ></script>
+
+    {% block extra_js %}{% endblock %}
+
+</body>
 </html>
