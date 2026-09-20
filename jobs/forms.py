@@ -23,7 +23,7 @@ class ResumeForm(forms.ModelForm):
 
     class Meta:
         model=Resume
-        fields=["file"]
+        fields=["resume_type","file"]
 
 class ApplicationForm(forms.ModelForm):
 

@@ -14,6 +14,10 @@ MY RESUMES
     <p>
         file: {{resume.file.name}}
     </p>
+    <form method="post" action="{% url 'resume_delete' resume.id %}">
+        {% csrf_token %}
+        <button type="submit">DELETE</button>
+    </form>
 {% empty %}
     <p>
         None uploaded

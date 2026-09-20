@@ -21,6 +21,19 @@ class Job(models.Model):
 
 class Resume(models.Model):
 
+    RESUME_TYPE=[
+        ("python","python developer"),
+        ("java","java developer"),
+        ("web","web developement"),
+        ("cyber","cybersecurity"),
+        ("mobile","app development")
+    ]
+
+    resume_type=models.CharField(
+        max_length=50,
+        choices=RESUME_TYPE
+    )
+
     applicant=models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -33,8 +46,12 @@ class Resume(models.Model):
         auto_now_add=True
     )
 
+    @property
+    def filename(self):
+        return os.path.basename(self.file.name)
+
     def __str__(self):
-        return f"resume {self.id} - {self.applicant.username}"
+        return f"{self.applicant.username} - {self.resume_type}"
 
 class Application(models.Model):
 
