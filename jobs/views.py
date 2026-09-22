@@ -270,11 +270,3 @@ def resumes(request):
             "resumes":resumes
         }
     )
-
-@login_required
-@jobseeker_required
-def resume_delete(request,id):
-    delete_obj=request.user.resumes.get(id=id)
-    delete_obj.delete()
-
-    return redirect("my_resumes")

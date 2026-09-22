@@ -13,6 +13,42 @@ class JobForm(forms.ModelForm):
             "descritpion"
         ]
 
+        widgets={
+
+            "title":forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"enter the job title"
+                }
+            ),
+            "company":forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"enter company name"
+                }
+            ),
+            "location":forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"enter job location"
+                }
+            ),
+            "salary":forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"enter the salary"
+                }
+            ),
+            "descritpion":forms.TextInput(
+                attrs={
+                    "class":"form-control",
+                    "placeholder":"description",
+                    "rows":5
+                }
+            )
+
+        }
+
 class ApplicationStatusForm(forms.ModelForm):
 
     class Meta:

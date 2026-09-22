@@ -16,6 +16,5 @@ urlpatterns=[
     path("<int:id>/delete_application",views.delete_application,name="delete_application"),
     path("<int:id>/update_application",views.update_application,name="update_application"),
     path("resumes/",views.resumes,name="my_resumes"),
-    path("resumes/upload",views.upload_resume,name="upload_resume"),
-    path("<int:id>/resume_delete",views.resume_delete,name="resume_delete")
+    path("resumes/upload",views.upload_resume,name="upload_resume")
 ]

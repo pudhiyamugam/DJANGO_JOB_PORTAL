@@ -1,32 +1,78 @@
 {% extends "base.html" %}
 
 {% block title %}
-MY RESUMES
+My Resumes
 {% endblock %}
 
 {% block content %}
-<h1>MY RESUMES</h1>
 
-{% for resume in resumes %}
-    <p>
-        Resume id: {{resume.id}}
-    </p>
-    <p>
-        file: {{resume.file.name}}
-    </p>
-    <form method="post" action="{% url 'resume_delete' resume.id %}">
-        {% csrf_token %}
-        <button type="submit">DELETE</button>
-    </form>
-{% empty %}
-    <p>
-        None uploaded
-    </p>
-{% endfor %}
-<a href="{% url 'upload_resume' %}">
-    <button>
-        UPLOAD
-    </button>
-</a>
+{% block extra_css %}
+<style>
+    .resume-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .resume-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+</style>
+{% endblock %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold">My Resumes</h1>
+
+    <a href="{% url 'upload_resume' %}" class="btn btn-primary">
+        Upload Resume
+    </a>
+</div>
+
+<div class="row g-4">
+
+    {% for resume in resumes %}
+
+    <div class="col-12 col-md-6 col-lg-4">
+
+    <div class="card h-100 shadow-sm border rounded-3 resume-card">
+
+        <div class="card-body">
+
+            <h5 class="card-title fw-bold">
+                {{ resume.get_resume_type_display }}
+            </h5>
+
+            <p class="text-muted mb-2">
+                <strong>File:</strong>
+                {{ resume.filename }}
+            </p>
+
+            <p class="text-muted">
+                <strong>Uploaded on:</strong>
+                {{ resume.uploaded_at|date:"d M Y" }}
+            </p>
+
+            <a href="{{ resume.file.url }}"
+               target="_blank"
+               class="btn btn-outline-primary w-100">
+                View Resume
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+    {% empty %}
+
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            You have not uploaded any resumes yet.
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
 
 {% endblock %}
