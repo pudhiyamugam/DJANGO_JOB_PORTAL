@@ -16,6 +16,9 @@
         rel="stylesheet"
     >
 
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     {% block extra_css %}{% endblock %}
 </head>
 
@@ -87,12 +90,19 @@
                     {% if user.is_authenticated %}
 
                         <li class="nav-item">
-                            <span class="navbar-text me-3">
-                                <a href="{% url 'job_seeker_dashboard' %}">
-                                    Hi, {{ user.username }}
-                                </a>
-                            </span>
+                            <a href="{% if user.is_authenticated and user.profile.role == 'job_seeker' %}
+                                        {% url 'job_seeker_dashboard' %}
+                                    {% elif user.is_authenticated and user.profile.role == 'recruiter' %}
+                                        {% url 'recruiter_dashboard' %}
+                                    {% endif %}"
+                            class="nav-link"
+                            title="My Dashboard">
+
+                                <i class="bi bi-person-circle fs-4"></i>
+
+                            </a>
                         </li>
+
 
                         <li class="nav-item">
                             <form method="POST" action="{% url 'user_logout' %}">

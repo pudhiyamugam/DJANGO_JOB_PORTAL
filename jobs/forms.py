@@ -39,13 +39,11 @@ class JobForm(forms.ModelForm):
                     "placeholder":"enter the salary"
                 }
             ),
-            "descritpion":forms.TextInput(
-                attrs={
-                    "class":"form-control",
-                    "placeholder":"description",
-                    "rows":5
-                }
-            )
+            "description": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 6,
+                "placeholder": "Describe the job, responsibilities, requirements, etc."
+            })
 
         }
 

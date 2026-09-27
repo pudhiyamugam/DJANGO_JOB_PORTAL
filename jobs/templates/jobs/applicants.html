@@ -1,32 +1,194 @@
-{% extends "base.html"%}
-{% block title%}
-APPLICANTS
+{% extends "base.html" %}
+
+{% block title %}
+Applicants
 {% endblock %}
 
 {% block content %}
-<p>{{job}}</p>
-<hr>
-{% for application in applications%}
-    <p>{{application.user.id}}</p>
-    <p>{{application.applicant.username}}</p>
-    <p>{{application.email}}</p>
-    <p>{{application.job}}</p>
-    <p>{{application.applied_at}}</p>
-    <p>{{application.status}}</p>
-    <a href="{{ application.resume.file.url }}" target="_blank">
-        {{application.resume}}
-    </a>
-    <form method="post" action="{% url 'update_application' application.id %}">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">
-            CHANGE
-        </button>
-    </form>
 
-    <hr>
+<div class="mb-4">
 
-{% empty %}
-    <p>there is no one</p>
-{% endfor %}
+<h1 class="fw-bold mb-1">
+    Applicants
+</h1>
+
+<p class="text-muted mb-1">
+    Applications for
+    <strong>{{ job.title }}</strong>
+</p>
+
+<p class="text-muted mb-0">
+    {{ job.company }} · {{ job.location }}
+</p>
+
+</div>
+
+<div class="card shadow-sm border rounded-3">
+
+<div class="card-body p-0">
+
+    {% for application in applications %}
+
+    <div class="p-4 border-bottom">
+
+        <div class="row g-4 align-items-start">
+
+            <!-- Applicant Details -->
+            <div class="col-12 col-lg-3">
+
+                <h5 class="fw-bold mb-2">
+                    {{ application.applicant.username }}
+                </h5>
+
+                <p class="text-muted mb-1">
+                    {{ application.applicant.email }}
+                </p>
+
+                <p class="text-muted mb-0">
+                    Applied:
+                    {{ application.applied_at|date:"d M Y, h:i A" }}
+                </p>
+
+            </div>
+
+
+            <!-- Resume -->
+            <div class="col-12 col-lg-3">
+
+                <p class="fw-semibold mb-2">
+                    Resume
+                </p>
+
+                {% if application.resume %}
+
+                    <p class="mb-1">
+                        {{ application.resume.get_resume_type_display }}
+                    </p>
+
+                    <p class="text-muted small mb-2">
+                        {{ application.resume.filename }}
+                    </p>
+
+                    <a href="{{ application.resume.file.url }}"
+                       target="_blank"
+                       class="btn btn-outline-primary btn-sm">
+                        View Resume
+                    </a>
+
+                {% else %}
+
+                    <span class="text-muted">
+                        No resume attached
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Status -->
+            <div class="col-12 col-lg-2">
+
+                <p class="fw-semibold mb-2">
+                    Current Status
+                </p>
+
+                {% if application.status == "Applied" %}
+
+                    <span class="badge bg-primary">
+                        Applied
+                    </span>
+
+                {% elif application.status == "Shortlisted" %}
+
+                    <span class="badge bg-warning text-dark">
+                        Shortlisted
+                    </span>
+
+                {% elif application.status == "Interview" %}
+
+                    <span class="badge bg-info text-dark">
+                        Interview
+                    </span>
+
+                {% elif application.status == "Selected" %}
+
+                    <span class="badge bg-success">
+                        Selected
+                    </span>
+
+                {% elif application.status == "Rejected" %}
+
+                    <span class="badge bg-danger">
+                        Rejected
+                    </span>
+
+                {% else %}
+
+                    <span class="badge bg-secondary">
+                        {{ application.status }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Update Status -->
+            <div class="col-12 col-lg-4">
+
+                <p class="fw-semibold mb-2">
+                    Update Application
+                </p>
+
+                <form method="post"
+                      action="{% url 'update_application' application.id %}">
+
+                    {% csrf_token %}
+
+                    {{ form.as_p }}
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Update Status
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="p-5 text-center">
+
+        <h5 class="fw-bold">
+            No Applicants Yet
+        </h5>
+
+        <p class="text-muted mb-0">
+            Nobody has applied for this job yet.
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+</div>
+
+<div class="mt-4">
+
+
+<a href="{% url 'my_jobs' %}"
+   class="btn btn-outline-secondary">
+    ← Back to My Jobs
+</a>
+
+</div>
+
 {% endblock %}

@@ -270,3 +270,4 @@ def resumes(request):
             "resumes":resumes
         }
     )
+

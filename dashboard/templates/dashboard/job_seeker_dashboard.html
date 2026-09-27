@@ -6,14 +6,107 @@ Job Seeker Dashboard
 
 {% block content %}
 
-<h1>Job Seeker Dashboard</h1>
+<!-- Welcome Section -->
 
-<h2>Welcome {{ user.username }}</h2>
+<div class="mb-4">
 
-<p>You are logged in as a job seeker.</p>
-<a href="{% url 'job_list'%}">
-    VIEW JOBS
-</a>
-<a href="{% url 'my_applications' %}">MY JOBS</a>
+<h1 class="fw-bold">
+    Welcome, {{ user.username }} 👋
+</h1>
+
+<p class="text-muted mb-0">
+    Manage your job applications, resumes, and discover new opportunities.
+</p>
+
+</div>
+
+<!-- Quick Actions -->
+
+<div class="row g-4">
+
+<!-- Browse Jobs -->
+<div class="col-12 col-md-6 col-lg-4">
+
+    <div class="card h-100 shadow-sm border rounded-3">
+
+        <div class="card-body">
+
+            <h4 class="fw-bold mb-2">
+                Browse Jobs
+            </h4>
+
+            <p class="text-muted">
+                Explore available job opportunities and find a position
+                that matches your skills.
+            </p>
+
+            <a href="{% url 'job_list' %}"
+               class="btn btn-primary w-100">
+                View Jobs
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- My Applications -->
+<div class="col-12 col-md-6 col-lg-4">
+
+    <div class="card h-100 shadow-sm border rounded-3">
+
+        <div class="card-body">
+
+            <h4 class="fw-bold mb-2">
+                My Applications
+            </h4>
+
+            <p class="text-muted">
+                Track the jobs you have applied for and check your
+                application status.
+            </p>
+
+            <a href="{% url 'my_applications' %}"
+               class="btn btn-outline-primary w-100">
+                View Applications
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- My Resumes -->
+<div class="col-12 col-md-6 col-lg-4">
+
+    <div class="card h-100 shadow-sm border rounded-3">
+
+        <div class="card-body">
+
+            <h4 class="fw-bold mb-2">
+                My Resumes
+            </h4>
+
+            <p class="text-muted">
+                Manage your uploaded resumes and choose the right resume
+                when applying for jobs.
+            </p>
+
+            <a href="{% url 'my_resumes' %}"
+               class="btn btn-outline-primary w-100">
+                Manage Resumes
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
 
 {% endblock %}
