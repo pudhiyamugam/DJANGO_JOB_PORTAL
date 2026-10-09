@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,8 +17,11 @@
         rel="stylesheet"
     >
 
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
 
     {% block extra_css %}{% endblock %}
 </head>
@@ -26,9 +30,12 @@
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
         <div class="container">
 
-            <a class="navbar-brand fw-bold" href="{% url 'job_list' %}">
+            <!-- Brand -->
+            <a class="navbar-brand fw-bold"
+               href="{% url 'job_list' %}">
                 JobPortal
             </a>
 
@@ -48,36 +55,48 @@
             <!-- Navigation Links -->
             <div class="collapse navbar-collapse" id="mainNavbar">
 
+                <!-- Left Side -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+                    <!-- Browse Jobs -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'job_list' %}">
+                        <a class="nav-link"
+                           href="{% url 'job_list' %}">
                             Browse Jobs
                         </a>
                     </li>
 
                     {% if user.is_authenticated %}
 
+                        <!-- Job Seeker Links -->
                         {% if user.profile.role == "jobseeker" %}
+
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'my_applications' %}">
+                                <a class="nav-link"
+                                   href="{% url 'my_applications' %}">
                                     My Applications
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'my_resumes' %}">
+                                <a class="nav-link"
+                                   href="{% url 'my_resumes' %}">
                                     My Resumes
                                 </a>
                             </li>
+
                         {% endif %}
 
+                        <!-- Recruiter Links -->
                         {% if user.profile.role == "recruiter" %}
+
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'my_jobs' %}">
+                                <a class="nav-link"
+                                   href="{% url 'my_jobs' %}">
                                     My Jobs
                                 </a>
                             </li>
+
                         {% endif %}
 
                     {% endif %}
@@ -85,44 +104,70 @@
                 </ul>
 
                 <!-- Right Side -->
-                <ul class="navbar-nav">
+                <ul class="navbar-nav align-items-lg-center gap-lg-1">
 
                     {% if user.is_authenticated %}
 
-                        <li class="nav-item">
-                            <a href="{% if user.is_authenticated and user.profile.role == 'job_seeker' %}
-                                        {% url 'job_seeker_dashboard' %}
-                                    {% elif user.is_authenticated and user.profile.role == 'recruiter' %}
-                                        {% url 'recruiter_dashboard' %}
+                        <!-- Dashboard Icon -->
+                        <li class="nav-item d-flex align-items-center">
+
+                            <a
+                                class="nav-link d-flex align-items-center justify-content-center text-white"
+                                href="{% if user.profile.role == 'jobseeker' %}
+                                            {% url 'job_seeker_dashboard' %}
+                                    {% elif user.profile.role == 'recruiter' %}
+                                            {% url 'recruiter_dashboard' %}
                                     {% endif %}"
-                            class="nav-link"
-                            title="My Dashboard">
-
-                                <i class="bi bi-person-circle fs-4"></i>
-
+                                title="My Dashboard"
+                                aria-label="My Dashboard"
+                            >
+                                <i class="bi bi-person-circle"
+                                style="font-size: 1.5rem; color: white;">
+                                </i>
                             </a>
+
                         </li>
 
+                        <!-- Logout -->
+                        <li class="nav-item d-flex align-items-center">
 
-                        <li class="nav-item">
-                            <form method="POST" action="{% url 'user_logout' %}">
+                            <form
+                                method="POST"
+                                action="{% url 'user_logout' %}"
+                                class="m-0"
+                            >
+
                                 {% csrf_token %}
-                                <button class="btn btn-outline-light btn-sm">
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-outline-light btn-sm"
+                                >
                                     Logout
                                 </button>
+
                             </form>
+
                         </li>
 
                     {% else %}
 
+                        <!-- Login -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'user_login' %}">
+                            <a
+                                class="nav-link"
+                                href="{% url 'user_login' %}"
+                            >
                                 Login
                             </a>
                         </li>
 
+                        <!-- Register -->
                         <li class="nav-item">
-                            <a class="btn btn-primary btn-sm mt-1" href="{% url 'register' %}">
+                            <a
+                                class="btn btn-primary btn-sm"
+                                href="{% url 'register' %}"
+                            >
                                 Register
                             </a>
                         </li>
@@ -137,8 +182,10 @@
 
     <!-- Main Content -->
     <main class="container py-4">
+
         {% block content %}
         {% endblock %}
+
     </main>
 
     <!-- Bootstrap JavaScript -->
@@ -146,7 +193,18 @@
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     ></script>
 
-    {% block extra_js %}{% endblock %}
-
 </body>
+
 </html>
+
+<style>
+    .dashboard-icon {
+        height: 38px;
+        width: 38px;
+        padding: 0;
+    }
+
+    .dashboard-icon i {
+        font-size: 1.35rem;
+    }
+</style>

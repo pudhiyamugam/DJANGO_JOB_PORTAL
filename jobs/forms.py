@@ -39,7 +39,7 @@ class JobForm(forms.ModelForm):
                     "placeholder":"enter the salary"
                 }
             ),
-            "description": forms.Textarea(attrs={
+            "descritpion": forms.Textarea(attrs={
                 "class": "form-control",
                 "rows": 6,
                 "placeholder": "Describe the job, responsibilities, requirements, etc."
@@ -56,8 +56,26 @@ class ApplicationStatusForm(forms.ModelForm):
 class ResumeForm(forms.ModelForm):
 
     class Meta:
-        model=Resume
-        fields=["resume_type","file"]
+        model = Resume
+
+        fields = [
+            "resume_type",
+            "file"
+        ]
+
+        widgets = {
+            "resume_type": forms.Select(
+                attrs={
+                    "class": "form-select"
+                }
+            ),
+
+            "file": forms.ClearableFileInput(
+                attrs={
+                    "class": "form-control"
+                }
+            ),
+        }
 
 class ApplicationForm(forms.ModelForm):
 

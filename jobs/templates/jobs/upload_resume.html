@@ -1,12 +1,100 @@
 {% extends "base.html" %}
+
 {% block title %}
-UPLOAD RESUME
+Upload Resume
 {% endblock %}
+
 {% block content %}
-<h1>UPLOAD RESUME</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">UPLOAD</button>
-</form>
+
+<div class="row justify-content-center">
+
+    <div class="col-12 col-md-8 col-lg-6">
+
+        <div class="card shadow-sm border rounded-3">
+
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h3 class="mb-0">Upload Resume</h3>
+            </div>
+
+            <div class="card-body p-4">
+
+                <p class="text-muted mb-4">
+                    Upload your resume so you can use it when applying for jobs.
+                </p>
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <!-- Resume Type -->
+                    <div class="mb-4">
+
+                        <label for="{{ form.resume_type.id_for_label }}"
+                               class="form-label fw-semibold">
+                            Resume Type
+                        </label>
+
+                        {{ form.resume_type }}
+
+                        {% for error in form.resume_type.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Resume File -->
+                    <div class="mb-4">
+
+                        <label for="{{ form.file.id_for_label }}"
+                               class="form-label fw-semibold">
+                            Resume File
+                        </label>
+
+                        {{ form.file }}
+
+                        <div class="form-text">
+                            Upload your resume in PDF or other supported format.
+                        </div>
+
+                        {% for error in form.file.errors %}
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-flex flex-column flex-sm-row gap-2">
+
+                        <button type="submit"
+                                class="btn btn-primary flex-fill">
+                            Upload Resume
+                        </button>
+
+                        <a href="{% url 'my_resumes' %}"
+                           class="btn btn-outline-secondary flex-fill">
+                            Cancel
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}
