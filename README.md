@@ -37,6 +37,7 @@ A web-based Job Portal application developed using **Python and Django**. The pl
  📂 Project Structure
 
 
+```text
 JOBPORTAL/
 │
 ├── accounts/
@@ -67,6 +68,7 @@ JOBPORTAL/
 ├── requirements.txt
 ├── .gitignore
 └── README.md
+```
 
 
 ⚙️ Installation and Setup
