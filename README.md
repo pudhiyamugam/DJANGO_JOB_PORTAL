@@ -1,10 +1,10 @@
-Django Job Portal
+# Django Job Portal
 
 A web-based Job Portal application developed using **Python and Django**. The platform connects job seekers with recruiters, allowing candidates to explore job opportunities and apply for positions while recruiters can publish job openings and manage applications.
 
-🚀 Features
+## 🚀 Features
 
- 👨‍💻 Job Seeker
+### 👨‍💻 Job Seeker
 - User registration and authentication.
 - Browse available job opportunities.
 - Search and filter jobs.
@@ -13,7 +13,7 @@ A web-based Job Portal application developed using **Python and Django**. The pl
 - Track application history and application status.
 - Access a personalized dashboard.
 
- 🏢 Recruiter
+### 🏢 Recruiter
 - Recruiter registration and authentication.
 - Create and publish job vacancies.
 - Edit and delete job postings.
@@ -22,7 +22,7 @@ A web-based Job Portal application developed using **Python and Django**. The pl
 - Update application statuses.
 - Access a recruiter dashboard.
 
- 🛠️ Technologies Used
+## 🛠️ Technologies Used
 
 | Category | Technologies |
 |---|---|
@@ -34,8 +34,7 @@ A web-based Job Portal application developed using **Python and Django**. The pl
 | Environment Management | Python-dotenv |
 | Version Control | Git, GitHub |
 
- 📂 Project Structure
-
+## 📂 Project Structure
 
 ```text
 JOBPORTAL/
@@ -70,102 +69,103 @@ JOBPORTAL/
 └── README.md
 ```
 
-
-⚙️ Installation and Setup
+## ⚙️ Installation and Setup
 
 Follow these steps to run the project locally.
 
-1. Clone the repository
+### 1. Clone the repository
 
-
+```bash
 git clone YOUR_GITHUB_REPOSITORY_URL
+```
 
+### 2. Navigate to the project directory
 
-2. Navigate to the project directory
-
-
+```bash
 cd JOBPORTAL
+```
 
+### 3. Create a virtual environment
 
-3. Create a virtual environment
-
-
+```bash
 python -m venv venv
+```
 
-4. Activate the virtual environment
+### 4. Activate the virtual environment
 
-Windows:
+**Windows:**
 
-powershell
+```powershell
 venv\Scripts\activate
+```
 
+**Linux / macOS:**
 
-Linux / macOS:
-
-
+```bash
 source venv/bin/activate
+```
 
+### 5. Install dependencies
 
-5. Install dependencies
-
-bash
+```bash
 pip install -r requirements.txt
+```
 
-
-6. Configure environment variables
+### 6. Configure environment variables
 
 Create a `.env` file in the project root directory.
 
-
+```env
 DJANGO_SECRET_KEY=your-secret-key
 DJANGO_DEBUG=True
 DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
-
+```
 
 Never commit your `.env` file or expose your secret key publicly.
 
-7. Apply database migrations
+### 7. Apply database migrations
 
-
+```bash
 python manage.py makemigrations
 python manage.py migrate
+```
 
+### 8. Create a superuser (Optional)
 
-8. Create a superuser (Optional)
-
-
+```bash
 python manage.py createsuperuser
+```
 
+### 9. Run the development server
 
-9. Run the development server
-
-
+```bash
 python manage.py runserver
-
+```
 
 Open your browser and visit:
 
+```text
 http://127.0.0.1:8000/
+```
 
-
-🗄️ Database
+## 🗄️ Database
 
 The project is configured to use:
 
-- SQLite for local development.
-- PostgreSQL for production deployment.
+- **SQLite** for local development.
+- **PostgreSQL** for production deployment.
 
 Production database configuration uses environment variables:
 
-env
+```env
 DB_NAME=your_database_name
 DB_USER=your_database_user
 DB_PASSWORD=your_database_password
 DB_HOST=your_database_host
 DB_PORT=5432
+```
 
-
-☁️ Deployment
+## ☁️ Deployment
 
 The project is being prepared for deployment using **AWS Elastic Beanstalk**.
 
@@ -178,20 +178,22 @@ Deployment configuration includes:
 
 Production deployment and persistent resume storage configuration are separate setup steps.
 
-🔐 Security Considerations
+## 🔐 Security Considerations
 
 - Secret keys and database credentials are managed through environment variables.
 - Debug mode should be disabled in production.
 - Production hosts and HTTPS settings must be configured before public deployment.
 - User-uploaded resumes should be stored using persistent storage in production.
 
-👨‍💻 Author
+## 👨‍💻 Author
 
-Jerin Thomas
+**Jerin Thomas**
 
 B.Tech Computer Science and Engineering
 
-LinkedIn: https://www.linkedin.com/in/jerin-thomas-7a695731b/
+GitHub: YOUR_GITHUB_PROFILE_URL
+
+LinkedIn: YOUR_LINKEDIN_PROFILE_URL
 
 ---
 
