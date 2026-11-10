@@ -191,9 +191,9 @@ Production deployment and persistent resume storage configuration are separate s
 
 B.Tech Computer Science and Engineering
 
-GitHub: YOUR_GITHUB_PROFILE_URL
+GitHub: https://github.com/pudhiyamugam
 
-LinkedIn: YOUR_LINKEDIN_PROFILE_URL
+LinkedIn: https://www.linkedin.com/in/jerin-thomas-7a695731b/
 
 ---
 
